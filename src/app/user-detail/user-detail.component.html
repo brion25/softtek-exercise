@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-grid-list cols="4" rowHeight="4:1" gutterSize="10px">
+    <p *ngIf="!user">
+      User not found, please go back to the list, by clicking <button mat-button (click)="goToList()">here</button>
+    </p>
+    <form class="example-form" *ngIf="user">
+      <mat-grid-tile rowspan="3">
+        <img [src]="user.picture.large">
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="First Name" [value]="user.name.first" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Last Name" [value]="user.name.last" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-flat-button (click)="goToList()">
+          Go to the Back to the List
+        </button>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Street" [value]="user.location.street" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="City" [value]="user.location.city" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile >
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="State" [value]="user.location.state" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile >
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" [value]="user.email" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Phone" [value]="user.phone" disabled>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile rowspan="4" colspan="4">
+        <app-map [user]="user"></app-map>
+      </mat-grid-tile>
+    </form>
+  </mat-grid-list>
+</mat-card>

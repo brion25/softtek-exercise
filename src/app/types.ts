@@ -5,7 +5,7 @@ export interface UserAddress {
   city: string;
   state: string;
   postcode: string;
-  coordinates?: {
+  coordinates: {
     latitude: string;
     longitude: string;
   };
@@ -19,6 +19,8 @@ export interface UserPicture {
 
 export interface User {
   cell: string;
+  email: string;
+  phone: string;
   name: {
     first: string;
     last: string;
@@ -29,4 +31,15 @@ export interface User {
 
 export interface JsonPlaceHolderInterface {
   getUsers(): Observable<any>;
+}
+
+export interface UserState {
+  list: Array<User>;
+}
+
+export enum UserActionsEnum {
+  SAVE_USERS = 'SAVE_USERS',
+  GET_USERS = 'GET_USERS',
+  LOAD_USERS = 'LOAD_USERS',
+  GET_USER = 'GET_USER'
 }

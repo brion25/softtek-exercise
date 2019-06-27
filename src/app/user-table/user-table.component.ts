@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { UsersService } from '../users.service';
-import { User } from '../types';
+import { LoadUsers } from '../store/actions/user-actions';
+import { selectUsers } from '../store/selectors/user-selector';
 
 @Component({
   selector: 'app-user-table',
@@ -14,23 +16,13 @@ export class UserTableComponent implements OnInit {
   displayedColumns: Array<string> = ['thumbnail', 'firstName', 'lastName'];
   users = new MatTableDataSource([]);
 
-  constructor(private placeholderService: UsersService) {}
+  constructor(private store$: Store<any>) {}
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
-    this.users.sort = this.sort;
-
-    this.placeholderService.getUsers().subscribe((data: any) => {
-      const users: Array<User> = data.results;
-      console.log(users);
-      this.users = new MatTableDataSource(
-        users.map(user => ({
-          firstName: user.name.first,
-          lastName: user.name.last,
-          picture: user.picture.thumbnail
-        }))
-      );
+    this.store$.pipe(select(selectUsers)).subscribe(users => {
+      this.users = new MatTableDataSource(users);
       this.users.sort = this.sort;
     });
   }
